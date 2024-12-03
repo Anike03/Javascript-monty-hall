@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Monty Hall Problem</title>
+  </head>
+  <body>
+    <h1>The Monty Hall Problem</h1>
+
+    <script>
+      // Define a variable to determine how many times to repeat the script
+      let repeat = 10000;
+
+      // Define a variable to track how many times stay would be the right choice
+      let stay = 0;
+
+      // Loop using the repeat variable
+      for (let i = 0; i < repeat; i++) {
+        let winningDoor = Math.ceil(Math.random() * 3);
+        document.write(
+          "<p>The winning door is number " + winningDoor + ".</p>"
+        );
+
+        // Step 2
+        // Winner needs to choose a door
+        let choice = Math.ceil(Math.random() * 3);
+        document.write("<p>The chosen door is number " + choice + ".</p>");
+
+        let removeDoor;
+        do {
+          removeDoor = Math.ceil(Math.random() * 3);
+        } while (removeDoor == choice || removeDoor == winningDoor);
+
+        document.write("<p>The removed door is number " + removeDoor + ".</p>");
+
+        if (winningDoor == choice) {
+          document.write("<h2>STAY!</h2>");
+          stay++;
+        } else {
+          document.write("<h2>SWITCH!</h2>");
+        }
+
+        document.write("<hr>");
+      }
+
+      let percent = ((stay / repeat) * 100).toFixed(2);
+      document.write(
+        "<p>Percent STAY is the right choice is " + percent + "%.</p>"
+      );
+    </script>
+  </body>
+</html>
