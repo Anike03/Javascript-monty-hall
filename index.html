@@ -2,52 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Monty Hall Problem</title>
   </head>
   <body>
     <h1>The Monty Hall Problem</h1>
-
     <script>
-      // Define a variable to determine how many times to repeat the script
-      let repeat = 10000;
+      var count = 10000;
+      var stay = 0;
+      var switchCounter = 0;
 
-      // Define a variable to track how many times stay would be the right choice
-      let stay = 0;
+      for (let i = 0; i < count; i++) {
+        var car = Math.ceil(Math.random() * 3);
+        // Output which door the car is behind
+        document.write("<p>The car is in door number " + car + "</p>");
 
-      // Loop using the repeat variable
-      for (let i = 0; i < repeat; i++) {
-        let winningDoor = Math.ceil(Math.random() * 3);
+        var choice = Math.ceil(Math.random() * 3);
         document.write(
-          "<p>The winning door is number " + winningDoor + ".</p>"
+          "<p>The contestant choses door number " + choice + "</p>"
         );
 
-        // Step 2
-        // Winner needs to choose a door
-        let choice = Math.ceil(Math.random() * 3);
-        document.write("<p>The chosen door is number " + choice + ".</p>");
-
-        let removeDoor;
+        var remove;
         do {
-          removeDoor = Math.ceil(Math.random() * 3);
-        } while (removeDoor == choice || removeDoor == winningDoor);
+          remove = Math.ceil(Math.random() * 3);
+        } while (remove === choice || remove === car);
+        document.write("<p>The removed door is number " + remove + "</p>");
 
-        document.write("<p>The removed door is number " + removeDoor + ".</p>");
-
-        if (winningDoor == choice) {
-          document.write("<h2>STAY!</h2>");
+        //what was the right choice
+        if (car == choice) {
           stay++;
+          document.write(
+            "<p style='color:red;'>The contestant should switch </p>"
+          );
         } else {
-          document.write("<h2>SWITCH!</h2>");
+          switchCounter++;
+          document.write(
+            "<p style='color:green;'>The contestant should stay </p>"
+          );
         }
-
-        document.write("<hr>");
       }
 
-      let percent = ((stay / repeat) * 100).toFixed(2);
       document.write(
-        "<p>Percent STAY is the right choice is " + percent + "%.</p>"
+        "<h2 style = 'color:red;'>Switch was correct " +
+          switchCounter +
+          " times <h2>"
+      );
+      document.write(
+        "<h2 style = 'color:green;'>Stay was correct " + stay + " times <h2>"
+      );
+
+      var Staypercent = ((stay / count) * 100).toFixed(2);
+      document.write(
+        "<h1>Stay was correct " + Staypercent + "% of the times</h1>"
+      );
+
+      var Switchpercent = ((switchCounter / count) * 100).toFixed(2);
+      document.write(
+        "<h1>Switch was correct " + Switchpercent + "% of the time</p>"
       );
     </script>
   </body>
